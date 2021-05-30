@@ -1,12 +1,19 @@
-const Movies=require("../models/movie")
+const mongoose = require('mongoose');
+var MovieSchema = new mongoose.Schema({
+    moviename: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true
+    },
+    movietime:{
+        type: Number,
+        required: true
+    },
+    director:{
+        type: String,
+        required: true
+    }
+});
 
-exports.create = (req,res) => {
-    const movie = new Movies(req.body);
-    movie.save((err,data)=>{
-        if(err) {
-            return res.status(400),json({error:err});
-        } else {
-            res.json({data})
-        }
-    })
-}
+  module.exports = mongoose.model("Movies", MovieSchema);
